@@ -18,8 +18,8 @@ class jp_transient{
 	/**
 	* Save To Transient Cache
 	*
-	* @param $value Value to be saved.
 	* @param $name Name of what we are saving.
+	* @param $value Value to be saved.
 	* @param string|int $reset (optional) How long to keep in cache. Options string: minute|hour|day|week|year|none or exact number of seconds as integer
 	* @todo Set expiration time using reset method
 	* @package jp-multisite-links
@@ -27,7 +27,7 @@ class jp_transient{
 	* @since 0.1
 	*/
 	
-	public function set( $value, $name, $reset ) {
+	static function set( $name, $value, $reset = false ) {
 	
 		/* prepare value for $reset */
 		//translate value of $reset into 
@@ -105,13 +105,13 @@ class jp_transient{
 		}
 		
 		//return value if possible.
-		if ( empty( $transient ) ){
+		if ( ! empty( $transient ) ){
 			//we have a transient so return value
-			$transient = $data;
+			$data = $transient;
 		}
 		else {
 			//nothing to return so return false
-			$date = false;
+			$data = false;
 		}
 		
 		//output our data.
