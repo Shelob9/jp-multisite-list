@@ -147,7 +147,7 @@ class jp_multisite_list {
 		return $out;
 	}
 			
-		/**
+	/**
 	* Create page list
 	*
 	* @returns string $pages_list the formatted page list
@@ -180,29 +180,42 @@ class jp_multisite_list {
 		return $data;
 	}
 }
-
-function pluginslug_get_foo() {
-    $foo = new pluginslug_foo();
-    return $foo;
-}
-
-function pluginslug_bar() {
-    $foo = pluginslug_get_foo();
-    $bar = $foo->bar();
-}
-
-
+			
+/**
+* Gets jp_multisite class so it can be used outside of plugin.
+*
+* @returns $list containing class
+* @package jp-multisite-links
+* @author Josh Pollock
+* @since 0.1
+*/
 function jp_msl_get_lists() {
 	$lists = new jp_multisite_list();
 	return $lists;
 }
 
+/**
+* Function for listing all pages of all sites in network, outside of plugin.
+*
+* @returns $pages containing the formatted pages list.
+* @package jp-multisite-links
+* @author Josh Pollock
+* @since 0.1
+*/
 function jp_msl_pages() {
 	$lists = jp_msl_get_lists();
 	$pages = $lists->pages();
 	echo $pages;
 }
 
+/**
+* Function for listing all posts of all sites in network, outside of plugin.
+*
+* @returns $posts containing the formatted posts list.
+* @package jp-multisite-links
+* @author Josh Pollock
+* @since 0.1
+*/
 function jp_msl_posts() {
 	$lists = jp_msl_get_lists();
 	$posts = $lists->posts();
