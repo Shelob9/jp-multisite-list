@@ -78,9 +78,11 @@ class jp_multisite_list {
 		//if there is nothing in cache assemble output
 		if ( $test == false) {
 			//create out put for posts
-			$list = posts_list();
+			$list = $this->posts_list();
 			//cache it for next time
-			jp_transient::set( 'posts', $out );
+			jp_transient::set( 'posts', $list );
+			//prepare to return $list
+			$out = $list;
 		}
 		else {
 			$out = jp_transient::get( 'jp_posts' );
@@ -98,7 +100,7 @@ class jp_multisite_list {
 	*/
 	public function posts_list() {
 		$data = '';
-		$blogs = blog_info();
+		$blogs = $this->blog_info();
 		foreach ($blogs as $blog) {
 			$name = $blog[ 'blog_name' ];
 			$url = $blog[ 'blog_url' ];
@@ -118,6 +120,7 @@ class jp_multisite_list {
 			$data .= '</ul>';
 		}
 		$posts_list = $data;
+		return $data;
 	}
 	
 	/**
@@ -132,9 +135,11 @@ class jp_multisite_list {
 		//if there is nothing in cache assemble output
 		if ( $test == false) {
 			//create out put for pages
-			$list = pages_list();
+			$list = $this->pages_list();
 			//cache it for next time
-			jp_transient::set( 'pages', $out );
+			jp_transient::set( 'pages', $list );
+			//prepare to return $list
+			$out = $list;
 		}
 		else {
 			$out = jp_transient::get( 'jp_pages' );
@@ -152,7 +157,7 @@ class jp_multisite_list {
 	*/
 	public function pages_list() {
 		$data = '';
-		$blogs = blog_info();
+		$blogs = $this->blog_info();
 		foreach ($blogs as $blog) {
 			$name = $blog[ 'blog_name' ];
 			$url = $blog[ 'blog_url' ];
