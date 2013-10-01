@@ -44,7 +44,18 @@ class jp_multisite_list {
 	*/
 	public function blog_info() {
 		global $blog_id;
-		$sites = wp_get_sites();
+		//test if we are in 3.7beta1 or later
+		//if so use wp_get_sites() the new function replacing get_blog_list()
+		//if false use get_blog_list() the deprecated one
+		$version = $this->is_37plus();
+		if ( $version != false ) {
+			//if we are in 3.7 beta1 or later use the new function.
+			$sites = wp_get_sites();
+		}
+		else {
+			//if not use the old deprecated function
+			$sites = get_blog_list();
+		}
 		$sites_info = array();
 		$current_site = $blog_id;
 
@@ -178,6 +189,26 @@ class jp_multisite_list {
 		}
 		$pages_list = $data;
 		return $data;
+	}
+	
+	/**
+	* Tests if we are in version 3.7 beta 1 or later or not.
+	*
+	* @returns true if we are, false if not.
+	* @package jp-multisite-links
+	* @author Josh Pollock
+	* @since 0.1
+	*/
+	public function is_37plus() {
+		global $wp_db_version;
+		$db_version = $wp_db_version;
+		//25448 is database version for 3.7 beta1
+		if ( $db_version >= 25448 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 			
