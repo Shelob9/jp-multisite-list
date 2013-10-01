@@ -177,7 +177,36 @@ class jp_multisite_list {
 			$data .= '</ul>';
 		}
 		$pages_list = $data;
+		return $data;
 	}
 }
 
-new jp_multisite_list();
+function pluginslug_get_foo() {
+    $foo = new pluginslug_foo();
+    return $foo;
+}
+
+function pluginslug_bar() {
+    $foo = pluginslug_get_foo();
+    $bar = $foo->bar();
+}
+
+
+function jp_msl_get_lists() {
+	$lists = new jp_multisite_list();
+	return $lists;
+}
+
+function jp_msl_pages() {
+	$lists = jp_msl_get_lists();
+	$pages = $lists->pages();
+	echo $pages;
+}
+
+function jp_msl_posts() {
+	$lists = jp_msl_get_lists();
+	$posts = $lists->posts();
+	echo $posts;
+}
+
+
