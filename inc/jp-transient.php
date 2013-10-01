@@ -105,13 +105,13 @@ class jp_transient{
 		}
 		
 		//return value if possible.
-		if ( empty( $transient ) ){
+		if ( ! empty( $transient ) ){
 			//we have a transient so return value
-			$transient = $data;
+			$data = $transient;
 		}
 		else {
 			//nothing to return so return false
-			$date = false;
+			$data = false;
 		}
 		
 		//output our data.
