@@ -23,12 +23,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * @since 0.1
 * @author Josh Pollock
 */
-
 include( 'inc/jp-transient.php' );
-function bl_trans() { 
-	$trans = new jp_transient();
-	return $trans;
-}
+
 
 /**
 * Creates the array of blog information, posts, pages
@@ -59,7 +55,7 @@ function bl_blog_info() {
 			'blog_id'		=> $site[ 'blog_id' ],
 			'blog_url'		=> get_home_url(),
 			'blog_name'		=> get_bloginfo( 'name'),
-			'postss'		=> $posts,
+			'posts'		=> $posts,
 			'pages'			=> $pages
 		);
 	}
@@ -76,24 +72,36 @@ function bl_blog_info() {
 * @since 0.1
 */
 function bl_network_posts() {
-	$blogs = bl_blog_info();
-	foreach ($blogs as $blog) {
-		$name = $blog[ 'blog_name' ];
-		$url = $blog[ 'blog_url' ];
-		switch_to_blog( 'blog_id' );
-		$posts = $blog[ 'posts' ];
-		echo '<h5><a href="'.$url.'">'.$name.'</a></h5>';
-		echo '<ul>';
-		foreach ($posts as $post ) {
-			$id = $post;
-			echo '<li>';
-			$title = get_the_title( $id );
-			$link = get_permalink( $id );
-			echo '<a href="'.$link.'">'.$title.'</a>';
-			echo '</li>';
+	$test = jp_transient::get('bl_posts');
+	//if there is nothing in cache assemble output
+	if ( $test == false) {
+		$out = '';
+		$blogs = bl_blog_info();
+		foreach ($blogs as $blog) {
+			$name = $blog[ 'blog_name' ];
+			$url = $blog[ 'blog_url' ];
+			switch_to_blog( 'blog_id' );
+			$posts = $blog[ 'posts' ];
+			$out .= '<h5><a href="'.$url.'">'.$name.'</a></h5>';
+			$out .= '<ul>';
+			foreach ($posts as $post ) {
+				$id = $post;
+				$out .= '<li>';
+				$title = get_the_title( $id );
+				$link = get_permalink( $id );
+				$out .= '<a href="'.$link.'">'.$title.'</a>';
+				$out .= '</li>';
+			}
+			$out .= '</ul>';
+			//cache it for next time
+			jp_transient::set( 'bl_posts', $out );
 		}
-		echo '</ul>';
 	}
+	else {
+		$out =jp_transient::get( 'bl_posts' );
+	}
+	//echo
+	echo $out;
 }
 
 /**
@@ -138,6 +146,7 @@ function bl_network_posts_pages() {
 		$url = $blog[ 'blog_url' ];
 		switch_to_blog( 'blog_id' );
 		$posts = $blog[ 'posts' ];
+		$pages = $blog[ 'pages' ];
 		echo '<h5><a href="'.$url.'">'.$name.'</a></h5>';
 		echo '<h6>Posts</h6>';
 		echo '<ul>';
