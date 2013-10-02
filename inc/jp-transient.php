@@ -31,19 +31,19 @@ class jp_transient{
 	
 		/* prepare value for $reset */
 		//translate value of $reset into 
-		if ( $reset = 'minute' ) {
+		if ( $reset == 'minute' ) {
 			$reset = MINUTE_IN_SECONDS;
 		}
-		elseif ( $reset = 'hour' ) {
+		elseif ( $reset == 'hour' ) {
 			$reset = HOUR_IN_SECONDS;
 		}
-		elseif ( $reset = 'day' ) {
+		elseif ( $reset == 'day' ) {
 			$reset = DAY_IN_SECONDS;
 		}
-		elseif ( $reset = 'week' ) {
+		elseif ( $reset == 'week' ) {
 			$reset = WEEK_IN_SECONDS;
 		}
-		elseif ( $reset = 'year' ) {
+		elseif ( $reset == 'year' ) {
 			$reset = YEAR_IN_SECONDS;
 		}
 		//other situations
@@ -51,9 +51,9 @@ class jp_transient{
 			//if its an integer leave it alone
 			$reset = $reset;
 		}
-		elseif ( is_empty( $reset ) ) {
+		elseif ( empty( $reset ) ) {
 			//if its empty set it to be false
-			$reset = fales;
+			$reset = false;
 		}
 		else {
 			//for safety's sake
@@ -63,6 +63,7 @@ class jp_transient{
 		/* Set the transient */
 		//test if we have anything to set.
 		if ( ! empty( $value ) ) {
+			//test for multisite, use appropriate function if is_multisite
 			if ( is_multisite() ) {
 				if ( $reset != false ) {
 					set_site_transient( $name, $value, $reset );
@@ -81,6 +82,7 @@ class jp_transient{
 				}
 			} // if ! is_multisite
 		} // ! empty( $value )
+		echo $reset;
 	}
 	
 	/**
