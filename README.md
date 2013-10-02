@@ -8,8 +8,7 @@ Use
 ===
 * List Posts
 In your theme use:
-```php
-<?php
+`<?php
 	if ( function_exists( 'jp_msl_posts') :
 		jp_msl_posts();
 	endif;
@@ -17,13 +16,12 @@ In your theme use:
 
 * List Pages
 In your theme use:
-```php
-<?php
+
+`<?php
 	if ( function_exists( 'jp_msl_pages') :
 		jp_msl_pages();
 	endif;
-?>```
-``
+?>`
 
 Planed Features For Version 1.0
 ===============================
