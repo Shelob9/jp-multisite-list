@@ -43,6 +43,7 @@ Planed Features For Version 1.0
 	Ability to reset on expiration.
 	
 * Use WP_Query instead of get_posts() and get_pages
+
 	Ability to pass WP_Query args to jp_multisite_list::posts and jp_multisite_list::pages
 	
 	Pass those args from out of class functions as well.
