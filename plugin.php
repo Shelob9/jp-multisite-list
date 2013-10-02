@@ -85,8 +85,8 @@ class jp_multisite_list {
 	* @author Josh Pollock
 	* @since 0.1
 	*/
-	public function posts() {
-		$test = jp_transient::get('jp_posts');
+	public function posts( $name = 'jp_posts', $value = null, $reset = false ) {
+		$test = jp_transient::get( $name );
 		//if there is nothing in cache assemble output
 		if ( $test == false) {
 			//create out put for posts
@@ -97,7 +97,7 @@ class jp_multisite_list {
 			$out = $list;
 		}
 		else {
-			$out = jp_transient::get( 'jp_posts' );
+			$out = jp_transient::get( $name );
 		}
 		return $out;
 	}
@@ -229,12 +229,14 @@ function jp_msl_get_lists() {
 /**
 * Function for listing all pages of all sites in network, outside of plugin.
 *
+* @param sting $name Name for the transient. (optional) Default jp_pages.
+* @param int|string $reset Experation time for transient. (Optional) Default = false, which is never expire. 
 * @returns $pages containing the formatted pages list.
 * @package jp-multisite-links
 * @author Josh Pollock
 * @since 0.1
 */
-function jp_msl_pages() {
+function jp_msl_pages( $name = 'jp_pages', $reset = false) {
 	$lists = jp_msl_get_lists();
 	$pages = $lists->pages();
 	echo $pages;
@@ -243,14 +245,16 @@ function jp_msl_pages() {
 /**
 * Function for listing all posts of all sites in network, outside of plugin.
 *
+* @param sting $name Name for the transient. (optional) Default jp_post
+* @param int|string $reset Experation time for transient. (Optional) Default = false, which is never expire. 
 * @returns $posts containing the formatted posts list.
 * @package jp-multisite-links
 * @author Josh Pollock
 * @since 0.1
 */
-function jp_msl_posts() {
+function jp_msl_posts( $name = 'jp_posts', $reset = false ) {
 	$lists = jp_msl_get_lists();
-	$posts = $lists->posts();
+	$posts = $lists->posts( $name = 'jp_posts', $reset = false );
 	echo $posts;
 }
 
