@@ -29,8 +29,9 @@ class jp_transient{
 	
 	static function set( $name, $value, $reset = false ) {
 	
-		/* prepare value for $reset */
-		//translate value of $reset into 
+		/** prepare value for $reset **/
+		/*If its a string that is a time value*/
+		//translate value of $reset into seconds
 		if ( $reset == 'minute' ) {
 			$reset = MINUTE_IN_SECONDS;
 		}
@@ -60,7 +61,7 @@ class jp_transient{
 			$reset = false;
 		}
 		
-		/* Set the transient */
+		/** Set the transient **/
 		//test if we have anything to set.
 		if ( ! empty( $value ) ) {
 			//test for multisite, use appropriate function if is_multisite
@@ -134,8 +135,7 @@ class jp_transient{
 	*/
 
 	public function auto_reset() {
-		//Do this later
-
+		
 	}
 
 
