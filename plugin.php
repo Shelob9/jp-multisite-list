@@ -7,13 +7,14 @@
 
 /*
 Plugin Name: Multisite Lists
-Plugin URI: 
+Plugin URI: https://github.com/Shelob9/jp-multisite-list/
 Description: Creates lists of things in a multisite network, like blogs, posts, pages etc. Uses transient cache to speed up list display.
 Version: 0.1
 Author: Josh Pollock
 Author URI: http://JoshPress.net
-License: GNU General Public License v2
+License: GNU General Public License v2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Copyright 2013 Josh Pollock. Licensed under The GNU General Public License version 2 or later.
 */
 
 /**
