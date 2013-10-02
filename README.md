@@ -73,3 +73,7 @@ Copyright 2013 Josh Pollock. Licensed under The GNU General Public License versi
 http://www.gnu.org/licenses/gpl-2.0.html
 
 Pull requests and other contributions are welcome.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Shelob9/jp-multisite-list/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
