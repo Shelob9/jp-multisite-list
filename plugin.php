@@ -2,7 +2,7 @@
 /*
 * @package jp-multisite-links
 * @author Josh Pollock
-* @since 0.1
+* @since 0.2 alpha
 */
 
 /*
