@@ -44,7 +44,9 @@ class jp_multisite_list {
 	* @since 0.1
 	*/
 	public function blog_info() {
+		//get id of current site
 		global $blog_id;
+		$current_site = $c_blog_id;
 		//test if we are in 3.7beta1 or later
 		//if so use wp_get_sites() the new function replacing get_blog_list()
 		//if false use get_blog_list() the deprecated one
@@ -58,8 +60,7 @@ class jp_multisite_list {
 			$sites = get_blog_list();
 		}
 		$sites_info = array();
-		$current_site = $blog_id;
-
+		
 		//run throught the sites. switch to blogs, get pages and posts as well as blog name, ID and url
 		foreach ( $sites as $site ) {
 			switch_to_blog( $site[ 'blog_id' ] );
@@ -73,9 +74,11 @@ class jp_multisite_list {
 				'pages'			=> $pages
 			);
 		}
-	
 		//return the array
 		return $sites_info;
+		
+		//return to current site
+		switch_to_blog( $c_blog_id );
 	}
 
 	/**
