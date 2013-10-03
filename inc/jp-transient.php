@@ -97,23 +97,6 @@ class jp_transient{
 			} // if ! is_multisite
 		} // ! empty( $value )
 		echo $reset;
-		
-		/**Set Up Reset On Action If Needed**/
-		//test if we need to do this
-		if ( $action_reset != false ) {
-			$name = $what_reset;
-			if ( $action_reset == 'post' ) {
-				add_action( 'publish_post', array( $this, 'auto_reset' ) );
-				return $what_reset;
-			}
-			elseif ( $action_reset == 'page' ) {
-				add_action( 'publish_page', array( $this, 'auto_reset' ) );
-				return $what_reset;
-			}
-			else {
-				//don't do shit.
-			}
-		}
 	}
 	
 	/**
