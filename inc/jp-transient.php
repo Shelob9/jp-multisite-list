@@ -20,7 +20,7 @@ class jp_transient{
 	*
 	* @param $name Name of what we are saving.
 	* @param $value Value to be saved.
-	* @param string|int $reset (optional) How long to keep in cache. Options string: minute|hour|day|week|year|none or exact number of seconds as integer
+	* @param string|int $reset (optional) How long to keep in cache. Options string: minute|hour|day|week|year|none|new_post|new_page or exact number of seconds as integer
 	* @todo Set expiration time using reset method
 	* @package jp-multisite-links
 	* @author Josh Pollock
@@ -30,6 +30,8 @@ class jp_transient{
 	static function set( $name, $value, $reset = false ) {
 	
 		/** prepare value for $reset **/
+		//set $action_rest to false, will be set properly later if needed
+		$action_reset = false;
 		/*If its a string that is a time value*/
 		//translate value of $reset into seconds
 		if ( $reset == 'minute' ) {
@@ -47,7 +49,18 @@ class jp_transient{
 		elseif ( $reset == 'year' ) {
 			$reset = YEAR_IN_SECONDS;
 		}
-		//other situations
+		/*reset on post or page publication*/
+		//Will set rest to false so it does not expire otherwise
+		//Also set the $action_reset param which would otherwise be false.
+		elseif ( $reset == 'new_post' ) {
+			$reset = false;
+			$action_reset = 'post';
+		}
+		elseif ( $reset == 'new_page' ) {
+			$reset = false;
+			$action_reset = 'page';
+		}
+		/*other situations*/
 		elseif ( is_int( $reset ) ) {
 			//if its an integer leave it alone
 			$reset = $reset;
@@ -84,6 +97,23 @@ class jp_transient{
 			} // if ! is_multisite
 		} // ! empty( $value )
 		echo $reset;
+		
+		/**Set Up Reset On Action If Needed**/
+		//test if we need to do this
+		if ( $action_reset != false ) {
+			$name = $what_reset;
+			if ( $action_reset == 'post' ) {
+				add_action( 'publish_post', array( $this, 'auto_reset' ) );
+				return $what_reset;
+			}
+			elseif ( $action_reset == 'page' ) {
+				add_action( 'publish_page', array( $this, 'auto_reset' ) );
+				return $what_reset;
+			}
+			else {
+				//don't do shit.
+			}
+		}
 	}
 	
 	/**
@@ -135,7 +165,13 @@ class jp_transient{
 	*/
 
 	public function auto_reset() {
-		
+		if ( is_multisite() ) {
+			delete_site_transient( $this->$what_reset );
+		}
+		else {
+			delete_transient( $this->$what_reset );
+		}
+			
 	}
 
 

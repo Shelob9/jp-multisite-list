@@ -85,14 +85,14 @@ class jp_multisite_list {
 	* @author Josh Pollock
 	* @since 0.1
 	*/
-	public function posts( $name = 'jp_posts', $value = null, $reset = false ) {
+	public function posts( $name , $value = null, $reset = false ) {
 		$test = jp_transient::get( $name );
 		//if there is nothing in cache assemble output
 		if ( $test == false) {
 			//create out put for posts
 			$list = $this->posts_list();
 			//cache it for next time
-			jp_transient::set( 'posts', $list );
+			jp_transient::set( $name , $list );
 			//prepare to return $list
 			$out = $list;
 		}
