@@ -48,15 +48,15 @@ class jp_transient{
 			$reset = YEAR_IN_SECONDS;
 		}
 		/*reset on post or page publication*/
-		//Will set rest to false so it does not expire otherwise
-		//Also set the $action_reset param which would otherwise be false.
+		//Will set reset to false so it does not expire otherwise
+		//Add $name to $post_publish_reset or $page_publish_reset
 		elseif ( $reset == 'new_post' ) {
 			$reset = false;
-			$action_reset = 'post';
+			add_reset( $post_reset = $name );
 		}
 		elseif ( $reset == 'new_page' ) {
 			$reset = false;
-			$action_reset = 'page';
+			add_reset( $page_reset = $name );
 		}
 		/*other situations*/
 		elseif ( is_int( $reset ) ) {
