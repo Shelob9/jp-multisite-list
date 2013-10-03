@@ -172,26 +172,40 @@ class jp_transient{
 	}
 		
 	/**
-	* Reset Transients
+	* Reset transients that are set to be deleted on post_publish
 	*
-	* @todo This. Idea is to be able to use it to more easily set reset times for transients.
-	* @todo Reset at specific time.
-	* @todo Put site into maintenance mode while rebuilding cache.
 	* @package jp-multisite-links
 	* @author Josh Pollock
-	* @since 0.1
+	* @since 0.2
 	*/
-
-	public function auto_reset( $what_reset ) {
-		
-		
+	public function reset_on_new_post() {
+		//prepare to delete
+		$what_reset = $this->post_publish_reset;
+		//delete
 		if ( is_multisite() ) {
 			delete_site_transient( $what_reset );
 		}
 		else {
 			delete_transient( $what_reset );
 		}
-			
+	}
+	
+	/**
+	* Reset transients that are set to be deleted on page_publish
+	*
+	* @package jp-multisite-links
+	* @author Josh Pollock
+	* @since 0.2
+	*/
+	public function reset_on_new_page() {
+		//prepare to delete
+		$what_reset = $this->page_publish_reset;
+		//delete
+		if ( is_multisite() ) {
+			delete_site_transient( $what_reset );
+		}
+		else {
+			delete_transient( $what_reset );
 	}
 
 
