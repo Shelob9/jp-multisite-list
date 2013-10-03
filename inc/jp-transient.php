@@ -15,6 +15,11 @@
 
 class jp_transient{
 
+	function __construct() {
+		add_action( 'publish_post', array( $this, 'reset_on_new_post' ) );
+		add_action( 'publish_page', array( $this, 'reset_on_new_page' ) );
+	}
+
 	/**
 	* Save To Transient Cache
 	*
