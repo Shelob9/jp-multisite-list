@@ -30,8 +30,6 @@ class jp_transient{
 	static function set( $name, $value, $reset = false ) {
 	
 		/** prepare value for $reset **/
-		//set $action_rest to false, will be set properly later if needed
-		$action_reset = false;
 		/*If its a string that is a time value*/
 		//translate value of $reset into seconds
 		if ( $reset == 'minute' ) {
@@ -135,7 +133,44 @@ class jp_transient{
 
 	}
 	
+	/**
+	* Arrays to store names of transients to be deleted on post or page publish.
+	*
+	* @param array $post_publish_reset All transients in array deleted on publish_post
+	* @param array $page_publish_reset All transients in array deleted on publish_page
+	* @package jp-multisite-links
+	* @author Josh Pollock
+	* @since 0.2
+	*/
+	public $post_publish_reset = array();
+	public $page_publish_reset = array();
 	
+	/**
+	* Adds new names of transients to the $post_publish_reset and $page_publish_reset arrays
+	* 
+	* @param string $post_reset Names of transients to be deleted on publish_post.
+	* @param string $page_reset Names of transients to be deleted on publish_page.
+	* @package jp-multisite-links
+	* @author Josh Pollock
+	* @since 0.2
+	*/
+	public add_reset( $post_reset = false, $page_reset = false ) {
+		//check if there is a transient to add to $post_publish_reset
+		if ( $post_reset != false ) {
+			//add to array
+			array_push($post_publish_reset, $post_reset);
+			//return array so auto_reset can delete item
+			return $post_publish_reset;
+		}
+		//check if there is a transient to add to $page_publish_reset
+		if ( $page_reset != false ) {
+			//add to array
+			array_push($page_publish_reset, $page_reset);
+			//return array so auto_reset can delete item
+			return $page_publish_reset;
+		}
+	}
+		
 	/**
 	* Reset Transients
 	*
@@ -147,12 +182,14 @@ class jp_transient{
 	* @since 0.1
 	*/
 
-	public function auto_reset() {
+	public function auto_reset( $what_reset ) {
+		
+		
 		if ( is_multisite() ) {
-			delete_site_transient( $this->$what_reset );
+			delete_site_transient( $what_reset );
 		}
 		else {
-			delete_transient( $this->$what_reset );
+			delete_transient( $what_reset );
 		}
 			
 	}
