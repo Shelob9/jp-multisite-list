@@ -32,7 +32,7 @@ class jp_transient{
 	* @since 0.1
 	*/
 	
-	static function set( $name, $value, $reset = false ) {
+	static function setter( $name, $value, $reset = false ) {
 	
 		/** prepare value for $reset **/
 		/*If its a string that is a time value*/
@@ -113,7 +113,7 @@ class jp_transient{
 	* @author Josh Pollock
 	* @since 0.1
 	*/
-	static function get( $name ) {
+	static function getter( $name ) {
 		
 		//get the transient
 		if ( is_multisite() ) {
@@ -159,7 +159,7 @@ class jp_transient{
 	* @author Josh Pollock
 	* @since 0.2
 	*/
-	static function add_to_reset( $post_reset = false, $page_reset = false ) {
+	public function add_to_reset( $post_reset = false, $page_reset = false ) {
 		//check if there is a transient to add to $post_publish_reset
 		if ( $post_reset != false ) {
 			//add to array
@@ -214,13 +214,22 @@ class jp_transient{
 		}
 	}
 	
+	/**
+	* Various Tests
+	*
+	* @param string $what What to test. 'get' var_dumps contents of transient $name. post_list|page_list for list of transients to be deleted on post/page publish
+	* @param sting $name (optional) Name of transient to get
+	* @package jp-multisite-links
+	* @author Josh Pollock
+	* @since 0.2
+	*/
 	static function test( $what, $name = false ) {
 		if (
 			$what == 'post_list' || $what == 'post list' || $what == 'post_reset' || $what == 'post reset' 
 			) 
 		{
 			echo 'post reset list $this->post_publish_reset';
-			var_dump( $this->post_publish_reset);
+			var_dump( $this->post_publish_reset );
 		}
 		elseif (
 			$what == 'page_list' || $what == 'page list' || $what == 'page_reset' || $what == 'page reset' 
@@ -234,7 +243,7 @@ class jp_transient{
 			)
 		{
 			echo 'Transient cache- '.$name.':';
-			var_dump( jp_transient::get( $name ) );
+			var_dump( getter( $name ) );
 		}
 		else { echo '<img src="http://placekitten.com/200/200" />'; }
 	}		
