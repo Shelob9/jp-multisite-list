@@ -213,7 +213,32 @@ class jp_transient{
 			delete_transient( $what_reset );
 		}
 	}
-
-
-
+	
+	static function test( $what, $name = false ) {
+		if (
+			$what == 'post_list' || $what == 'post list' || $what == 'post_reset' || $what == 'post reset' 
+			) 
+		{
+			echo 'post reset list $this->post_publish_reset';
+			var_dump( $this->post_publish_reset);
+		}
+		elseif (
+			$what == 'page_list' || $what == 'page list' || $what == 'page_reset' || $what == 'page reset' 
+			) 
+		{
+			echo 'page reset list $this->page_publish_reset';
+			var_dump( $this->page_publish_reset);
+		}
+		elseif (
+			$what == 'get' || $what == 'get_trans' || $what ==  'get trans' 
+			)
+		{
+			echo 'Transient cache- '.$name.':';
+			var_dump( jp_transient::get( $name ) );
+		}
+		else { echo '<img src="http://placekitten.com/200/200" />'; }
+	}		
+	
 }
+
+new jp_transient();
