@@ -159,7 +159,9 @@ class jp_transient{
 	* @author Josh Pollock
 	* @since 0.2
 	*/
-	public function add_to_reset( $post_reset = false, $page_reset = false ) {
+	static function add_to_reset( $post_reset, $page_reset ) {
+		$post_publish_reset = array();
+		$page_publish_reset = array();
 		//check if there is a transient to add to $post_publish_reset
 		if ( $post_reset != false ) {
 			//add to array
@@ -175,7 +177,7 @@ class jp_transient{
 			return $page_publish_reset;
 		}
 	}
-		
+	
 	/**
 	* Reset transients that are set to be deleted on post_publish
 	*
