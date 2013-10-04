@@ -88,19 +88,19 @@ class jp_multisite_list {
 	* @author Josh Pollock
 	* @since 0.1
 	*/
-	public function posts( $name , $value = null, $reset = false ) {
+	public function posts( $name = 'jp_msl_pages', $value = null, $reset = 'new_post' ) {
 		$test = jp_transient::get( $name );
 		//if there is nothing in cache assemble output
 		if ( $test == false) {
 			//create out put for posts
 			$list = $this->posts_list();
 			//cache it for next time
-			jp_transient::set( $name , $list );
+			jp_transient::setter( $name , $list, $reset );
 			//prepare to return $list
 			$out = $list;
 		}
 		else {
-			$out = jp_transient::get( $name );
+			$out = jp_transient::getter( $name );
 		}
 		return $out;
 	}
@@ -146,18 +146,18 @@ class jp_multisite_list {
 	* @since 0.1
 	*/
 	public function pages() {
-		$test = jp_transient::get('jp_pages');
+		$test = jp_transient::getter('jp_pages');
 		//if there is nothing in cache assemble output
 		if ( $test == false) {
 			//create out put for pages
 			$list = $this->pages_list();
 			//cache it for next time
-			jp_transient::set( 'pages', $list );
+			jp_transient::setter( 'pages', $list );
 			//prepare to return $list
 			$out = $list;
 		}
 		else {
-			$out = jp_transient::get( 'jp_pages' );
+			$out = jp_transient::getter( 'jp_pages' );
 		}
 		return $out;
 	}

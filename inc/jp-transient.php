@@ -57,11 +57,11 @@ class jp_transient{
 		//Add $name to $post_publish_reset or $page_publish_reset
 		elseif ( $reset == 'new_post' ) {
 			$reset = false;
-			add_reset( $post_reset = $name );
+			add_to_reset( $post_reset = $name );
 		}
 		elseif ( $reset == 'new_page' ) {
 			$reset = false;
-			add_reset( $page_reset = $name );
+			add_to_reset( $page_reset = $name );
 		}
 		/*other situations*/
 		elseif ( is_int( $reset ) ) {
@@ -113,7 +113,7 @@ class jp_transient{
 	* @author Josh Pollock
 	* @since 0.1
 	*/
-	public function get( $name ) {
+	static function get( $name ) {
 		
 		//get the transient
 		if ( is_multisite() ) {
@@ -159,7 +159,7 @@ class jp_transient{
 	* @author Josh Pollock
 	* @since 0.2
 	*/
-	public function add_reset( $post_reset = false, $page_reset = false ) {
+	static function add_to_reset( $post_reset = false, $page_reset = false ) {
 		//check if there is a transient to add to $post_publish_reset
 		if ( $post_reset != false ) {
 			//add to array
