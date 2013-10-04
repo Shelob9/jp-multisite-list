@@ -46,7 +46,7 @@ class jp_multisite_list {
 	public function blog_info() {
 		//get id of current site
 		global $blog_id;
-		$current_site = $c_blog_id;
+		$c_blog_id = $blog_id;
 		//test if we are in 3.7beta1 or later
 		//if so use wp_get_sites() the new function replacing get_blog_list()
 		//if false use get_blog_list() the deprecated one
@@ -255,7 +255,7 @@ function jp_msl_pages( $name = 'jp_pages', $reset = false) {
 * @author Josh Pollock
 * @since 0.1
 */
-function jp_msl_posts( $name = 'jp_posts', $reset = false ) {
+function jp_msl_posts( $name = 'jp_posts', $reset = 'new_post' ) {
 	$lists = jp_msl_get_lists();
 	$posts = $lists->posts( $name = 'jp_posts', $reset = false );
 	echo $posts;
