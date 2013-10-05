@@ -25,6 +25,8 @@ Copyright 2013 Josh Pollock. Licensed under The GNU General Public License versi
 * @author Josh Pollock
 */
 include( 'inc/jp-transient.php' );
+include( 'widget.php');
+
 
 
 class jp_multisite_list {
