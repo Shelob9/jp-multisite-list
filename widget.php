@@ -8,18 +8,18 @@
 
 
 /**
- * Adds Foo_Widget widget.
+ * Adds jpt_Widget widget.
  */
-class Foo_Widget extends WP_Widget {
+class jpt_Widget extends WP_Widget {
 
     /**
      * Register widget with WordPress.
      */
     function __construct() {
         parent::__construct(
-            'foo_widget', // Base ID
-            __('Widget Title', 'text_domain'), // Name
-            array( 'description' => __( 'A Foo Widget', 'text_domain' ), ) // Args
+            'jp_widget', // Base ID
+            __('Multisite Post List', 'jp-msl'), // Name
+            array( 'description' => __( 'Show all posts from all blogs in your multisite network.', 'jp-msl' ), ) // Args
         );
     }
 
@@ -37,8 +37,9 @@ class Foo_Widget extends WP_Widget {
         echo $args['before_widget'];
         if ( ! empty( $title ) )
             echo $args['before_title'] . $title . $args['after_title'];
-        echo __( 'Hello, World!', 'text_domain' );
-        echo $args['after_widget'];
+        //echo __( 'Hello, World!', 'jp-msl' );
+        //echo $args['after_widget'];
+        jp_msl_posts();
     }
 
     /**
@@ -53,7 +54,7 @@ class Foo_Widget extends WP_Widget {
             $title = $instance[ 'title' ];
         }
         else {
-            $title = __( 'New title', 'text_domain' );
+            $title = __( ' ', 'jp-msl' );
         }
         ?>
         <p>
@@ -80,9 +81,9 @@ class Foo_Widget extends WP_Widget {
         return $instance;
     }
 
-} // class Foo_Widget
-// register Foo_Widget widget
-function register_foo_widget() {
-    register_widget( 'Foo_Widget' );
+} // class jpt_Widget
+// register jpt_Widget widget
+function register_jpt_widget() {
+    register_widget( 'jpt_Widget' );
 }
-add_action( 'widgets_init', 'register_foo_widget' );
+add_action( 'widgets_init', 'register_jpt_widget' );
