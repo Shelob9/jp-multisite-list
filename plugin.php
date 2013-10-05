@@ -25,6 +25,8 @@ Copyright 2013 Josh Pollock. Licensed under The GNU General Public License versi
 * @author Josh Pollock
 */
 include( 'inc/jp-transient.php' );
+include( 'widget.php');
+
 
 
 class jp_multisite_list {
@@ -119,11 +121,11 @@ class jp_multisite_list {
 		foreach ($blogs as $blog) {
 			$name = $blog[ 'blog_name' ];
 			$url = $blog[ 'blog_url' ];
-			$data .= '<h5><a href="'.$url.'">'.$name.'</a></h5>';
+			$data .= '<div class="jp-msl jp-msl-blog-title"><a href="'.$url.'">'.$name.'</a></h5>';
 			switch_to_blog( 'blog_id' );
 			$posts = $blog[ 'posts' ];
 			
-			$data .= '<ul>';
+			$data .= '<ul class="jp-msl jp-msl-post-list">';
 			foreach ($posts as $post ) {
 				$id = $post;
 				$data .= '<li>';
